@@ -114,7 +114,7 @@ class CustomerServiceIT {
 		customers.forEach(customer -> log.info(customer.getName()));
 
 		// Assert
-		assertFalse(customers.isEmpty(), "No puedo borrar");
+		assertFalse(customers.isEmpty(), "No encontro customers");
 	}
 
 }

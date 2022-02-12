@@ -45,7 +45,7 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 
 	@Override
-	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Customer save(Customer entity) throws Exception {
 		if(entity == null) {
 			throw new Exception("El customer es nulo");
@@ -53,7 +53,7 @@ public class CustomerServiceImpl implements CustomerService{
 		validate(entity);
 		
 		if(customerRepository.existsById(entity.getCustId())){
-			throw new Exception("El cliente ya existe");
+			throw new Exception("El customer ya existe");
 		}
 		
 		return customerRepository.save(entity);
@@ -68,7 +68,7 @@ public class CustomerServiceImpl implements CustomerService{
 		validate(entity);
 		
 		if(!customerRepository.existsById(entity.getCustId())){
-			throw new Exception("El cliente no existe");
+			throw new Exception("El customer no existe");
 		}
 		
 		return customerRepository.save(entity);
@@ -82,11 +82,11 @@ public class CustomerServiceImpl implements CustomerService{
 		}		
 		
 		if(entity.getCustId()==null){
-			throw new Exception("El id delcliente es nulo");
+			throw new Exception("El customer id es nulo");
 		}
 		
 		if(!customerRepository.existsById(entity.getCustId())){
-			throw new Exception("El cliente no existe");
+			throw new Exception("El customer no existe");
 		}
 		
 		findById(entity.getCustId()).ifPresent(customer -> {
@@ -109,7 +109,7 @@ public class CustomerServiceImpl implements CustomerService{
 		}
 		
 		if(!customerRepository.existsById(id)){
-			throw new Exception("El cliente no existe");
+			throw new Exception("El customer no existe");
 		}
 		
 		delete(findById(id).get());		

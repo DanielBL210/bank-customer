@@ -98,7 +98,7 @@ class CustomerRepositoryIT {
 		customerOptional = customerRepository.findById(idCustomer);
 
 		// Assert
-		assertFalse(customerOptional.isPresent(), "No puedo borrar");
+		assertFalse(customerOptional.isPresent(), "No pudo borrar");
 	}
 
 	@Test
@@ -113,7 +113,7 @@ class CustomerRepositoryIT {
 		customers.forEach(customer -> log.info(customer.getName()));
 
 		// Assert
-		assertFalse(customers.isEmpty(), "No puedo borrar");
+		assertFalse(customers.isEmpty(), "No encontro customers");
 	}
 
 }
