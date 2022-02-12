@@ -2,6 +2,7 @@ package com.vobi.bank.repository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -14,8 +15,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.vobi.bank.domain.Customer;
 import com.vobi.bank.domain.DocumentType;
 
+import lombok.extern.slf4j.Slf4j;
+
 @SpringBootTest
 @TestMethodOrder(OrderAnnotation.class)
+@Slf4j
 class CustomerRepositoryIT {
 
 	@Autowired
@@ -59,17 +63,17 @@ class CustomerRepositoryIT {
 
 		assertNotNull(customer, "El customer es nulo no se pudo grabar");
 	}
-	
+
 	@Test
 	@Order(3)
 	void debeModificarUnCustomer() {
 		// Arrange
-		Integer idCustomer = 14836554;		
-		
+		Integer idCustomer = 14836554;
+
 		Customer customer = null;
 		customer = customerRepository.findById(idCustomer).get();
 		customer.setEnable("N");
-		
+
 		// Act
 
 		customer = customerRepository.save(customer);
@@ -78,23 +82,38 @@ class CustomerRepositoryIT {
 
 		assertNotNull(customer, "El customer es nulo no se pudo grabar");
 	}
-	
+
 	@Test
 	@Order(4)
 	void debeBorrarUnCustomer() {
 		// Arrange
-		Integer idCustomer = 14836554;		
-		
+		Integer idCustomer = 14836554;
+
 		Customer customer = null;
 		Optional<Customer> customerOptional = null;
-		customer = customerRepository.findById(idCustomer).get();		
-		
+		customer = customerRepository.findById(idCustomer).get();
+
 		// Act
 		customerRepository.delete(customer);
 		customerOptional = customerRepository.findById(idCustomer);
 
 		// Assert
-		assertFalse(customerOptional.isPresent(),"No puedo borrar");
+		assertFalse(customerOptional.isPresent(), "No puedo borrar");
+	}
+
+	@Test
+	@Order(5)
+	void debeConsultarTodosLosCustomers() {
+		// Arrange
+		List<Customer> customers = null;
+
+		// Act
+		customers = customerRepository.findAll();
+
+		customers.forEach(customer -> log.info(customer.getName()));
+
+		// Assert
+		assertFalse(customers.isEmpty(), "No puedo borrar");
 	}
 
 }
