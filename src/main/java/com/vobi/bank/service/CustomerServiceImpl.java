@@ -75,6 +75,7 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void delete(Customer entity) throws Exception {
 		if(entity == null) {
 			throw new Exception("El customer es nulo");
@@ -101,6 +102,7 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void deleteById(Integer id) throws Exception {
 		if(id == null) {
 			throw new Exception("El customer es nulo");
