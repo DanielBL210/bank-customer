@@ -26,7 +26,7 @@ public class CustomerDTO {
 	private String address;
 
 	@NotNull
-	@Email
+	@Email(message = "el correo esta mal")
 	private String email;
 
 	@NotNull
